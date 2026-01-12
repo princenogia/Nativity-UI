@@ -83,7 +83,7 @@ export function Sidebar({ className, isOpen, onClose }: SidebarProps) {
                 <Link
                   key={item.href}
                   href={item.href}
-                  onClick={() => setIsMobileOpen(false)}
+                  onClick={onClose}
                   className={cn(
                     "relative flex items-center px-2 py-1.5 text-[13px] rounded-md transition-colors",
                     isActive
