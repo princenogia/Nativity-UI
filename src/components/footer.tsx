@@ -26,7 +26,7 @@ export function Footer() {
             </p>
             <div className="flex items-center gap-3 mt-4">
               <Link
-                href="https://github.com"
+                href="https://github.com/princenogia/Nativity-UI"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="w-9 h-9 rounded-lg border border-border flex items-center justify-center hover:bg-accent hover:border-muted-foreground/20 transition-all"
@@ -58,7 +58,7 @@ export function Footer() {
               </li>
               <li>
                 <Link
-                  href="/docs/components/button"
+                  href="/components"
                   className="text-sm text-muted-foreground hover:text-foreground transition-colors"
                 >
                   Components
@@ -66,10 +66,10 @@ export function Footer() {
               </li>
               <li>
                 <Link
-                  href="/docs/installation"
+                  href="/examples"
                   className="text-sm text-muted-foreground hover:text-foreground transition-colors"
                 >
-                  Installation
+                  Examples
                 </Link>
               </li>
             </ul>
@@ -97,7 +97,7 @@ export function Footer() {
               </li>
               <li>
                 <Link
-                  href="https://github.com"
+                  href="https://github.com/princenogia/Nativity-UI"
                   target="_blank"
                   className="text-sm text-muted-foreground hover:text-foreground transition-colors"
                 >
