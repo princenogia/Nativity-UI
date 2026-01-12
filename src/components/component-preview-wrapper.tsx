@@ -155,10 +155,7 @@ export function ComponentPreviewWrapper({
             >
               {needsMobileContainer ? (
                 <div className="relative">
-                  <div
-                    className="relative bg-transparent rounded-2xl overflow-hidden border border-white/20"
-                    style={{ width: "375px", minHeight: "280px" }}
-                  >
+                  <div className="w-full max-w-[375px] min-h-[280px] relative bg-transparent rounded-2xl overflow-hidden border border-white/20">
                     <div className="flex justify-between items-center px-6 py-2 bg-zinc-900/50 text-xs font-medium text-zinc-400">
                       <span>9:41</span>
                       <div className="flex items-center gap-1">
@@ -171,7 +168,7 @@ export function ComponentPreviewWrapper({
                   </div>
                 </div>
               ) : (
-                <div className="p-8 min-w-[280px] max-w-full">
+                <div className="p-4 sm:p-8 min-w-0 max-w-full overflow-x-auto">
                   <PreviewComponent customProps={customProps} />
                 </div>
               )}

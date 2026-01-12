@@ -65,7 +65,7 @@ export default function ComponentPageClient({ slug }: { slug: string }) {
   };
 
   return (
-    <div className="container mx-auto max-w-4xl px-6 py-12 page-transition">
+    <div className="container mx-auto max-w-4xl px-4 sm:px-6 py-8 sm:py-12 page-transition">
       {/* Breadcrumb */}
       <nav className="flex items-center gap-2 text-sm text-muted-foreground mb-8">
         <Link href="/docs" className="hover:text-foreground transition-colors">
@@ -116,7 +116,7 @@ export default function ComponentPageClient({ slug }: { slug: string }) {
       {doc.props.length > 0 && (
         <section className="mb-12">
           <h2 className="text-xl font-bold mb-4">Props</h2>
-          <div className="rounded-xl border border-border overflow-hidden">
+          <div className="rounded-xl border border-border overflow-x-auto">
             <table className="w-full">
               <thead className="bg-muted/50">
                 <tr>

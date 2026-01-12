@@ -10,9 +10,9 @@ export function DocsLayoutClient({ children }: { children: React.ReactNode }) {
   return (
     <>
       <Header onMenuClick={() => setSidebarOpen(true)} />
-      <div className="flex flex-1">
+      <div className="flex flex-1 min-h-screen">
         <Sidebar isOpen={sidebarOpen} onClose={() => setSidebarOpen(false)} />
-        <div className="flex-1">{children}</div>
+        <div className="flex-1 min-w-0">{children}</div>
       </div>
     </>
   );
