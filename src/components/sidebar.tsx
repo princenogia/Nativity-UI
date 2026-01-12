@@ -23,6 +23,7 @@ interface SidebarProps {
   className?: string;
   isOpen?: boolean;
   onClose?: () => void;
+  isMobile?: boolean; // New prop
 }
 
 // Category icons mapping
@@ -37,7 +38,7 @@ const categoryIcons: Record<string, React.ElementType> = {
   Animations: Palette,
 };
 
-export function Sidebar({ className, isOpen, onClose }: SidebarProps) {
+export function Sidebar({ className, isOpen, onClose, isMobile }: SidebarProps) {
   const pathname = usePathname();
   const [expandedCategories, setExpandedCategories] =
     React.useState<string[]>(categories);
@@ -53,9 +54,17 @@ export function Sidebar({ className, isOpen, onClose }: SidebarProps) {
   const sidebarContent = (
     <div className="flex flex-col h-full">
       {/* Logo */}
-      <div className="px-4 py-5 border-b border-sidebar-border">
+      {/* Logo - Only show on Mobile Sidebar or if explicitly enabled (though in this design, Header has logo) */}
+      {/* For desktop sidebar in docs layout, we usually hide logo because it's in the top header. */}
+      {/* Let's condition it: Show if isMobile (Drawer), hide if embedded desktop? 
+          Actually, the current design has a sidebar logo. Let's keep it for now but maybe we should hiding it if it's redundant.
+          For the "Docs Layout", the Header is always there. 
+          Let's hide logo if it's NOT mobile (embedded) to avoid double logo.
+      */}
+      <div className={cn("px-4 py-5 border-b border-sidebar-border", !isOpen && !className?.includes("fixed") ? "hidden" : "block")}>
         <Link href="/" className="flex items-center gap-2.5 group">
           <div className="relative">
+            {/* Using standard img for simplicity or Next Image */}
             <img
               src="/logo.png"
               alt="Nativity UI Logo"
@@ -76,7 +85,10 @@ export function Sidebar({ className, isOpen, onClose }: SidebarProps) {
           <div className="space-y-0.5">
             {[
               { href: "/docs", label: "Introduction" },
+              { href: "/docs/getting-started", label: "Getting Started" },
               { href: "/docs/installation", label: "Installation" },
+              { href: "/docs/theming", label: "Theming" },
+              { href: "/docs/animations", label: "Animations" },
             ].map((item) => {
               const isActive = pathname === item.href;
               return (
@@ -166,45 +178,46 @@ export function Sidebar({ className, isOpen, onClose }: SidebarProps) {
     </div>
   );
 
+  if (isMobile) {
+    return (
+      <>
+        <AnimatePresence>
+          {isOpen && (
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              className="fixed inset-0 bg-black/60 backdrop-blur-sm z-40 lg:hidden"
+              onClick={onClose}
+            />
+          )}
+        </AnimatePresence>
+
+        <AnimatePresence>
+          {isOpen && (
+            <motion.aside
+              initial={{ x: -280 }}
+              animate={{ x: 0 }}
+              exit={{ x: -280 }}
+              transition={{ type: "spring", damping: 25, stiffness: 200 }}
+              className="fixed left-0 top-0 bottom-0 w-[280px] bg-sidebar border-r border-sidebar-border z-50 shadow-2xl lg:hidden"
+            >
+              {sidebarContent}
+            </motion.aside>
+          )}
+        </AnimatePresence>
+      </>
+    );
+  }
+
+  // Desktop / Embedded 
   return (
-    <>
-      {/* Mobile overlay */}
-      <AnimatePresence>
-        {isOpen && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            className="lg:hidden fixed inset-0 bg-black/60 backdrop-blur-sm z-40"
-            onClick={onClose}
-          />
-        )}
-      </AnimatePresence>
-
-      {/* Mobile sidebar */}
-      <AnimatePresence>
-        {isOpen && (
-          <motion.aside
-            initial={{ x: -280 }}
-            animate={{ x: 0 }}
-            exit={{ x: -280 }}
-            transition={{ type: "spring", damping: 25, stiffness: 200 }}
-            className="lg:hidden fixed left-0 top-0 bottom-0 w-[280px] bg-sidebar border-r border-sidebar-border z-50 shadow-2xl"
-          >
-            {sidebarContent}
-          </motion.aside>
-        )}
-      </AnimatePresence>
-
-      {/* Desktop sidebar */}
-      <aside
-        className={cn(
-          "hidden lg:flex flex-col w-[260px] bg-sidebar border-r border-sidebar-border h-screen sticky top-0",
-          className
-        )}
-      >
-        {sidebarContent}
-      </aside>
-    </>
+    <div className={cn("flex flex-col h-full bg-sidebar border-r border-sidebar-border", className)}>
+      {/* Hide logo for embedded desktop sidebar as header exists */}
+      <style jsx global>{`
+           aside .px-4.py-5.border-b.border-sidebar-border { display: none; } 
+        `}</style>
+      {sidebarContent}
+    </div>
   );
 }

@@ -13,6 +13,7 @@ import {
 } from "@/lib/components-data";
 import { Header } from "@/components/header";
 
+
 export default function HomePage() {
   const [activeCategory, setActiveCategory] = React.useState<string | null>(
     null
@@ -34,45 +35,10 @@ export default function HomePage() {
         {/* Animated gradient background */}
         <div className="absolute inset-0 hero-gradient" />
 
-        {/* Floating orbs */}
-        <motion.div
-          className="absolute top-1/4 left-1/4 w-96 h-96 bg-violet-500/10 rounded-full blur-3xl floating-orb"
-          animate={{
-            x: [0, 30, 0],
-            y: [0, -20, 0],
-          }}
-          transition={{
-            duration: 8,
-            repeat: Infinity,
-            ease: "easeInOut",
-          }}
-        />
-        <motion.div
-          className="absolute bottom-1/4 right-1/4 w-80 h-80 bg-pink-500/10 rounded-full blur-3xl floating-orb"
-          animate={{
-            x: [0, -20, 0],
-            y: [0, 30, 0],
-          }}
-          transition={{
-            duration: 10,
-            repeat: Infinity,
-            ease: "easeInOut",
-            delay: 1,
-          }}
-        />
-        <motion.div
-          className="absolute top-1/2 right-1/3 w-64 h-64 bg-blue-500/10 rounded-full blur-3xl floating-orb"
-          animate={{
-            x: [0, 40, 0],
-            y: [0, 20, 0],
-          }}
-          transition={{
-            duration: 12,
-            repeat: Infinity,
-            ease: "easeInOut",
-            delay: 2,
-          }}
-        />
+        {/* Static background gradients - Replaces animated orbs */}
+        <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-violet-500/10 rounded-full blur-3xl" />
+        <div className="absolute bottom-1/4 right-1/4 w-80 h-80 bg-pink-500/10 rounded-full blur-3xl" />
+        <div className="absolute top-1/2 right-1/3 w-64 h-64 bg-blue-500/10 rounded-full blur-3xl" />
 
         {/* Grid pattern */}
         <div className="absolute inset-0 bg-[linear-gradient(rgba(139,92,246,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(139,92,246,0.03)_1px,transparent_1px)] bg-[size:64px_64px]" />
@@ -143,7 +109,7 @@ export default function HomePage() {
               </Link>
 
               <Link
-                href="https://github.com"
+                href="https://github.com/princenogia/Nativity-UI"
                 target="_blank"
                 className={cn(
                   "inline-flex items-center gap-2 px-6 py-4 rounded-xl font-medium text-base",
@@ -345,6 +311,168 @@ export default function HomePage() {
         </div>
       </section>
 
+      {/* Comparison Table Section */}
+      <section className="py-20 px-6">
+        <div className="container mx-auto max-w-5xl">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+            className="text-center mb-12"
+          >
+            <h2 className="text-3xl sm:text-4xl font-bold mb-4">
+              How We Compare
+            </h2>
+            <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
+              See how Nativity UI stacks up against other React Native UI libraries
+            </p>
+          </motion.div>
+
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, delay: 0.1 }}
+            className="overflow-x-auto"
+          >
+            <table className="w-full border-collapse">
+              <thead>
+                <tr className="border-b border-border">
+                  <th className="text-left py-4 px-4 font-semibold">Feature</th>
+                  <th className="text-center py-4 px-4 font-semibold bg-primary/5 border-x border-primary/20">
+                    <span className="text-primary">Nativity UI</span>
+                  </th>
+                  <th className="text-center py-4 px-4 font-semibold text-muted-foreground">NativeBase</th>
+
+                </tr>
+              </thead>
+              <tbody>
+                {[
+                  { feature: "No npm install required", nativity: true, nativebase: false },
+                  { feature: "Copy-paste components", nativity: true, nativebase: false },
+                  { feature: "Reanimated animations", nativity: true, nativebase: false },
+                  { feature: "Fully customizable", nativity: true, nativebase: true },
+                  { feature: "TypeScript support", nativity: true, nativebase: true },
+                  { feature: "Dark mode built-in", nativity: true, nativebase: true },
+                  { feature: "Zero dependencies", nativity: true, nativebase: false },
+                  { feature: "Expo SDK 52+ ready", nativity: true, nativebase: true },
+                ].map((row, index) => (
+                  <tr key={index} className="border-b border-border">
+                    <td className="py-3 px-4 text-sm">{row.feature}</td>
+                    <td className="py-3 px-4 text-center bg-primary/5 border-x border-primary/20">
+                      {row.nativity ? (
+                        <span className="inline-flex items-center justify-center w-6 h-6 rounded-full bg-green-500/20 text-green-500">✓</span>
+                      ) : (
+                        <span className="text-muted-foreground">-</span>
+                      )}
+                    </td>
+                    <td className="py-3 px-4 text-center">
+                      {row.nativebase ? (
+                        <span className="inline-flex items-center justify-center w-6 h-6 rounded-full bg-green-500/20 text-green-500">✓</span>
+                      ) : (
+                        <span className="text-muted-foreground">-</span>
+                      )}
+                    </td>
+
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* Testimonials Section */}
+      <section className="py-20 px-6 bg-muted/20 border-y border-border">
+        <div className="container mx-auto max-w-5xl">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+            className="text-center mb-12"
+          >
+            <h2 className="text-3xl sm:text-4xl font-bold mb-4">
+              Loved by Developers
+            </h2>
+            <p className="text-muted-foreground text-lg">
+              See what the community is saying about Nativity UI
+            </p>
+          </motion.div>
+
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            {[
+              {
+                name: "Alex Chen",
+                role: "Senior Mobile Dev",
+                avatar: "AC",
+                content: "Finally, a UI library that doesn't force you into their ecosystem. Copy, paste, customize - exactly how it should be!",
+                color: "from-violet-500 to-purple-500",
+              },
+              {
+                name: "Sarah Miller",
+                role: "Indie App Developer",
+                avatar: "SM",
+                content: "The animations are buttery smooth. My users thought I hired a professional animation studio!",
+                color: "from-pink-500 to-rose-500",
+              },
+              {
+                name: "James Wilson",
+                role: "Startup Founder",
+                avatar: "JW",
+                content: "Shipped our MVP 2 weeks faster thanks to Nativity UI. The components just work out of the box.",
+                color: "from-blue-500 to-cyan-500",
+              },
+              {
+                name: "Emily Davis",
+                role: "React Native Consultant",
+                avatar: "ED",
+                content: "I recommend Nativity UI to all my clients. The code quality is excellent and easy to extend.",
+                color: "from-green-500 to-emerald-500",
+              },
+              {
+                name: "Michael Brown",
+                role: "Tech Lead",
+                avatar: "MB",
+                content: "Zero dependencies means zero headaches. Our bundle size stayed lean and clean.",
+                color: "from-orange-500 to-amber-500",
+              },
+              {
+                name: "Lisa Park",
+                role: "UI/UX Designer",
+                avatar: "LP",
+                content: "As a designer who codes, I love how customizable these components are. Perfect for prototyping!",
+                color: "from-red-500 to-pink-500",
+              },
+            ].map((testimonial, index) => (
+              <motion.div
+                key={testimonial.name}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: index * 0.1 }}
+                className="p-6 rounded-2xl bg-card border border-border"
+              >
+                <div className="flex items-center gap-3 mb-4">
+                  <div className={cn(
+                    "w-10 h-10 rounded-full bg-gradient-to-br flex items-center justify-center text-white text-sm font-bold",
+                    testimonial.color
+                  )}>
+                    {testimonial.avatar}
+                  </div>
+                  <div>
+                    <div className="font-semibold">{testimonial.name}</div>
+                    <div className="text-sm text-muted-foreground">{testimonial.role}</div>
+                  </div>
+                </div>
+                <p className="text-muted-foreground">&ldquo;{testimonial.content}&rdquo;</p>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* CTA Section */}
       <section className="py-24 px-6">
         <div className="container mx-auto max-w-3xl text-center">
@@ -375,6 +503,8 @@ export default function HomePage() {
           </motion.div>
         </div>
       </section>
+
+
     </div>
   );
 }

@@ -53,24 +53,16 @@ cd my-app`,
     },
     {
       number: "3",
-      title: "Copy components",
-      description: "Browse our components and copy the ones you need.",
-      link: "/docs/components/button",
+      title: "Set up the design system",
+      description: "Follow our guide to set up the theme and animations.",
+      link: "/docs/getting-started",
     },
     {
       number: "4",
-      title: "Customize and use",
+      title: "Copy and use",
       description:
-        "Import the components and customize them to match your design.",
-      code: `import { Button } from '@/components/ui/button';
-
-export default function App() {
-  return (
-    <Button onPress={() => console.log('Pressed!')}>
-      Get Started
-    </Button>
-  );
-}`,
+        "Browse our components and copy the ones you need.",
+      link: "/components",
     },
   ];
 
@@ -194,7 +186,7 @@ export default function App() {
         <h2 className="text-2xl font-bold mb-4">Next Steps</h2>
         <div className="grid sm:grid-cols-2 gap-4">
           <Link
-            href="/docs/installation"
+            href="/docs/getting-started"
             className={cn(
               "p-4 rounded-xl bg-card/50 border border-border",
               "hover:border-primary/50 hover:bg-card transition-all duration-200",
@@ -206,15 +198,15 @@ export default function App() {
                 <Package className="w-4 h-4 text-primary" />
               </div>
               <h4 className="font-medium group-hover:text-primary transition-colors">
-                Installation Guide
+                Getting Started
               </h4>
             </div>
             <p className="text-sm text-muted-foreground pl-11">
-              Detailed setup instructions for your project
+              Step-by-step setup for your Expo project
             </p>
           </Link>
           <Link
-            href="/docs/components/button"
+            href="/docs/theming"
             className={cn(
               "p-4 rounded-xl bg-card/50 border border-border",
               "hover:border-primary/50 hover:bg-card transition-all duration-200",
@@ -222,15 +214,55 @@ export default function App() {
             )}
           >
             <div className="flex items-center gap-3 mb-2">
-              <div className="w-8 h-8 rounded-lg bg-primary/10 flex items-center justify-center group-hover:bg-primary/20 transition-colors">
-                <Terminal className="w-4 h-4 text-primary" />
+              <div className="w-8 h-8 rounded-lg bg-pink-500/10 flex items-center justify-center group-hover:bg-pink-500/20 transition-colors">
+                <Palette className="w-4 h-4 text-pink-500" />
               </div>
-              <h4 className="font-medium group-hover:text-primary transition-colors">
-                Button Component
+              <h4 className="font-medium group-hover:text-pink-500 transition-colors">
+                Theming
               </h4>
             </div>
             <p className="text-sm text-muted-foreground pl-11">
-              Start with your first component
+              Customize colors and design tokens
+            </p>
+          </Link>
+          <Link
+            href="/docs/animations"
+            className={cn(
+              "p-4 rounded-xl bg-card/50 border border-border",
+              "hover:border-primary/50 hover:bg-card transition-all duration-200",
+              "group"
+            )}
+          >
+            <div className="flex items-center gap-3 mb-2">
+              <div className="w-8 h-8 rounded-lg bg-yellow-500/10 flex items-center justify-center group-hover:bg-yellow-500/20 transition-colors">
+                <Sparkles className="w-4 h-4 text-yellow-500" />
+              </div>
+              <h4 className="font-medium group-hover:text-yellow-500 transition-colors">
+                Animations
+              </h4>
+            </div>
+            <p className="text-sm text-muted-foreground pl-11">
+              Master smooth 60fps animations
+            </p>
+          </Link>
+          <Link
+            href="/components"
+            className={cn(
+              "p-4 rounded-xl bg-card/50 border border-border",
+              "hover:border-primary/50 hover:bg-card transition-all duration-200",
+              "group"
+            )}
+          >
+            <div className="flex items-center gap-3 mb-2">
+              <div className="w-8 h-8 rounded-lg bg-blue-500/10 flex items-center justify-center group-hover:bg-blue-500/20 transition-colors">
+                <Terminal className="w-4 h-4 text-blue-500" />
+              </div>
+              <h4 className="font-medium group-hover:text-blue-500 transition-colors">
+                Components
+              </h4>
+            </div>
+            <p className="text-sm text-muted-foreground pl-11">
+              Browse the library of 20+ components
             </p>
           </Link>
         </div>

@@ -2,17 +2,22 @@
 
 import * as React from "react";
 import Link from "next/link";
-import { Github, Search, Star, Sparkles, Menu } from "lucide-react";
+import { usePathname } from "next/navigation";
+import { Search, Menu, X, Github, Moon, Sun, Monitor, Star, Sparkles } from "lucide-react";
+import { useTheme } from "next-themes";
 import { cn } from "@/lib/utils";
 import { ThemeToggle } from "./theme-toggle";
-import { SearchModal } from "./search-modal";
+import { SearchDialog } from "@/components/search-dialog";
 
 interface HeaderProps {
   className?: string;
   onMenuClick?: () => void;
 }
 
-export function Header({ className, onMenuClick }: HeaderProps) {
+export function Header({ onMenuClick }: HeaderProps) {
+  const pathname = usePathname();
+  const { theme, setTheme } = useTheme();
+  const [scrolled, setScrolled] = React.useState(false);
   const [searchOpen, setSearchOpen] = React.useState(false);
 
   // Keyboard shortcut to open search (⌘K or Ctrl+K)
@@ -33,13 +38,13 @@ export function Header({ className, onMenuClick }: HeaderProps) {
       {/* Announcement Banner */}
       <div className="announcement-banner py-2 px-4 text-center text-sm hidden sm:block">
         <div className="flex items-center justify-center gap-2">
-          <Sparkles className="w-4 h-4 text-primary" />
           <span className="text-muted-foreground">
             <span className="text-foreground font-medium">Nativity UI Pro</span>{" "}
             is coming soon with 50+ premium components.
           </span>
           <Link
-            href="#"
+            href="https://github.com/princenogia/Nativity-UI/discussions"
+            target="_blank"
             className="text-primary hover:text-primary/80 font-medium transition-colors"
           >
             Join waitlist →
@@ -48,10 +53,7 @@ export function Header({ className, onMenuClick }: HeaderProps) {
       </div>
 
       <header
-        className={cn(
-          "sticky top-0 z-40 w-full border-b border-border bg-background/80 backdrop-blur-xl",
-          className
-        )}
+        className="sticky top-0 z-40 w-full border-b border-border bg-background/80 backdrop-blur-xl"
       >
         <div className="flex h-14 items-center justify-between px-4 sm:px-6">
           {/* Left side - Mobile menu button */}
@@ -65,6 +67,16 @@ export function Header({ className, onMenuClick }: HeaderProps) {
               </button>
             )}
 
+            {/* Logo */}
+            <Link href="/" className="flex items-center gap-2 mr-4">
+              <img
+                src="/logo.png"
+                alt="Nativity UI Logo"
+                className="w-8 h-8 rounded-lg object-contain"
+              />
+              <span className="font-bold text-foreground hidden sm:inline">Nativity UI</span>
+            </Link>
+
             {/* Navigation Links - Desktop */}
             <div className="hidden lg:flex items-center gap-4">
               <Link
@@ -75,10 +87,17 @@ export function Header({ className, onMenuClick }: HeaderProps) {
                 <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-primary transition-all duration-300 group-hover:w-full" />
               </Link>
               <Link
-                href="/docs/components/button"
+                href="/components"
                 className="relative px-1 py-1.5 text-sm text-muted-foreground hover:text-foreground transition-colors group"
               >
                 Components
+                <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-primary transition-all duration-300 group-hover:w-full" />
+              </Link>
+              <Link
+                href="/examples"
+                className="relative px-1 py-1.5 text-sm text-muted-foreground hover:text-foreground transition-colors group"
+              >
+                Examples
                 <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-primary transition-all duration-300 group-hover:w-full" />
               </Link>
             </div>
@@ -102,7 +121,7 @@ export function Header({ className, onMenuClick }: HeaderProps) {
           <div className="flex items-center gap-2">
             {/* GitHub Star Button */}
             <Link
-              href="https://github.com"
+              href="https://github.com/princenogia/Nativity-UI"
               target="_blank"
               rel="noopener noreferrer"
               className={cn(
@@ -120,7 +139,7 @@ export function Header({ className, onMenuClick }: HeaderProps) {
 
             {/* GitHub Icon - Mobile */}
             <Link
-              href="https://github.com"
+              href="https://github.com/princenogia/Nativity-UI"
               target="_blank"
               rel="noopener noreferrer"
               className={cn(
@@ -136,10 +155,11 @@ export function Header({ className, onMenuClick }: HeaderProps) {
             <ThemeToggle />
           </div>
         </div>
-      </header>
+      </header >
 
       {/* Search Modal */}
-      <SearchModal isOpen={searchOpen} onClose={() => setSearchOpen(false)} />
+      {/* Search Dialog */}
+      <SearchDialog open={searchOpen} onOpenChange={setSearchOpen} />
     </>
   );
 }

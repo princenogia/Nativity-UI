@@ -1,9 +1,24 @@
+/**
+ * @file components-data.ts
+ * @description Master registry of all UI components available in Nativity UI.
+ * Used by the sidebar, search, and component gallery.
+ */
+
+/**
+ * Metadata for a single UI component.
+ */
 export interface ComponentMeta {
+  /** Display name of the component */
   name: string;
+  /** Short description for search and preview */
   description: string;
+  /** URL-friendly identifier (used in routes) */
   slug: string;
+  /** Category for grouping (e.g., "Text Animations", "Buttons") */
   category: string;
+  /** Mark as newly added component */
   isNew?: boolean;
+  /** Mark as visually impressive/featured */
   isStylish?: boolean;
 }
 
